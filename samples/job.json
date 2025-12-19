@@ -1,0 +1,30 @@
+{
+  "id": "job-123",
+  "title": "Senior Backend Engineer",
+  "description": "Work on distributed systems that power job search.",
+  "companyName": "Cabmark",
+  "companyId": "company-1",
+  "location": [
+    {
+      "city": "New York",
+      "state": "NY",
+      "country": "USA",
+      "remote": false
+    }
+  ],
+  "salary": {
+    "minAmount": 140000,
+    "maxAmount": 180000,
+    "currency": "USD",
+    "period": "yearly"
+  },
+  "remote": true,
+  "employmentType": "full-time",
+  "tags": ["python", "distributed-systems"],
+  "categories": ["engineering"],
+  "department": "Platform",
+  "language": "en",
+  "publishedAt": "2024-01-01T12:00:00Z",
+  "createdAt": "2024-01-01T12:00:00Z",
+  "updatedAt": "2024-01-02T12:00:00Z"
+}
