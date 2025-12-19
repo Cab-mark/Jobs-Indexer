@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from typing import Optional, Union
 from urllib.parse import quote
 
@@ -58,7 +59,7 @@ class OpenSearchClient:
     def upsert_document(self, document_id: str, document: dict) -> None:
         if not self.endpoint:
             raise OpenSearchError("OPENSEARCH_ENDPOINT is not configured")
-        if not document_id or "/" in document_id or ".." in document_id:
+        if not document_id or not re.fullmatch(r"[A-Za-z0-9._-]+", document_id):
             raise OpenSearchError("Invalid document id")
 
         url = f"{self.endpoint}/{quote(self.index)}/_doc/{quote(document_id)}"

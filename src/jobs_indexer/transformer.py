@@ -36,28 +36,30 @@ def transform_job_to_index(job: Job) -> JobIndex:
     normalized_salary = _normalize_salary(job.salary)
 
     target_fields = {
-        "id": job.id,
-        "title": job.title,
-        "description": job.description,
-        "companyName": job.companyName,
-        "companyId": job.companyId,
-        "location": normalized_location,
-        "salary": normalized_salary,
-        "remote": job.remote,
-        "employmentType": job.employmentType,
-        "tags": job.tags,
-        "categories": job.categories,
-        "department": job.department,
-        "language": job.language,
-        "publishedAt": job.publishedAt,
-        "createdAt": job.createdAt,
-        "updatedAt": job.updatedAt,
-        "expiresAt": job.expiresAt,
-        "source": job.source,
+        key: value
+        for key, value in {
+            "id": job.id,
+            "title": job.title,
+            "description": job.description,
+            "companyName": job.companyName,
+            "companyId": job.companyId,
+            "location": normalized_location,
+            "salary": normalized_salary,
+            "remote": job.remote,
+            "employmentType": job.employmentType,
+            "tags": job.tags,
+            "categories": job.categories,
+            "department": job.department,
+            "language": job.language,
+            "publishedAt": job.publishedAt,
+            "createdAt": job.createdAt,
+            "updatedAt": job.updatedAt,
+            "expiresAt": job.expiresAt,
+            "source": job.source,
+        }.items()
+        if value is not None
     }
 
     # Extension hook for derived/index-optimized fields while keeping the base mapping stable.
-    enhanced = apply_index_enhancements(
-        {key: value for key, value in target_fields.items() if value is not None}
-    )
+    enhanced = apply_index_enhancements(target_fields)
     return JobIndex.model_validate(enhanced)
