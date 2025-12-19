@@ -35,10 +35,10 @@ def extract_job_payload(body: str) -> Any:
     if isinstance(parsed, dict) and "Message" in parsed:
         parsed = _maybe_json(parsed["Message"])
 
-    if isinstance(parsed, dict) and "job" in parsed:
-        return _maybe_json(parsed["job"])
-
     if isinstance(parsed, dict):
+        if "job" in parsed:
+            return _maybe_json(parsed["job"])
+        # No nested job envelope; treat the dict as the job itself
         return parsed
 
     raise BodyParsingError("Unsupported message envelope")

@@ -33,7 +33,7 @@ def apply_index_enhancements(document: dict) -> dict:
 
 def transform_job_to_index(job: Job) -> JobIndex:
     normalized_location = _normalize_location(job.location)
-    normalized_salary = _normalize_salary(job.salary) if job.salary is not None else None
+    normalized_salary = _normalize_salary(job.salary)
 
     target_fields = {
         "id": job.id,
