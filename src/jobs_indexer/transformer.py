@@ -56,6 +56,7 @@ def transform_job_to_index(job: Job) -> JobIndex:
         "source": job.source,
     }
 
+    # Extension hook for derived/index-optimized fields while keeping the base mapping stable.
     enhanced = apply_index_enhancements(
         {key: value for key, value in target_fields.items() if value is not None}
     )

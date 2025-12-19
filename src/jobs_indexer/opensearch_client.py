@@ -58,6 +58,8 @@ class OpenSearchClient:
     def upsert_document(self, document_id: str, document: dict) -> None:
         if not self.endpoint:
             raise OpenSearchError("OPENSEARCH_ENDPOINT is not configured")
+        if not document_id or "/" in document_id or ".." in document_id:
+            raise OpenSearchError("Invalid document id")
 
         url = f"{self.endpoint}/{quote(self.index)}/_doc/{quote(document_id)}"
         response = self._session.put(
