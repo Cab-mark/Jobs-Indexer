@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import time
 from typing import Dict, List
 
@@ -8,9 +9,12 @@ import boto3
 from .config import Settings
 from .handler import _build_client, _process_record
 from .logging import setup_logger
+from .opensearch_client import OpenSearchClient
 
 
-def poll_queue_once(settings: Settings, client, logger) -> List[Dict[str, str]]:
+def poll_queue_once(
+    settings: Settings, client: OpenSearchClient, logger: logging.Logger
+) -> List[Dict[str, str]]:
     sqs = boto3.client("sqs", region_name=settings.aws_region)
     response = sqs.receive_message(
         QueueUrl=settings.sqs_queue_url,
