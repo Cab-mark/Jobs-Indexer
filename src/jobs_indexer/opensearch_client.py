@@ -70,7 +70,7 @@ class OpenSearchClient:
         if response.status_code not in (200, 201):
             self.logger.error(
                 "OpenSearch upsert failed",
-                extra={"status": response.status_code, "reason": response.text[:500]},
+                extra={"status": response.status_code, "documentId": document_id},
             )
             raise OpenSearchError(
                 f"Failed to upsert document {document_id}: {response.status_code}"
