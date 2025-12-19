@@ -22,4 +22,4 @@ def setup_logger(level: str = "INFO") -> logging.Logger:
 
 
 def log_extra(**kwargs: Any) -> Dict[str, Any]:
-    return {"extra": {"extra": kwargs}}
+    return {"extra": kwargs}

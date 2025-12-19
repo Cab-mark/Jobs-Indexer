@@ -2,8 +2,6 @@ from __future__ import annotations
 
 from typing import Any
 
-from pydantic import ValidationError
-
 from .models import Job, JobIndex, Location, Salary
 
 
@@ -22,11 +20,7 @@ def _normalize_location(raw: Any) -> Any:
 def _normalize_salary(raw: Any) -> Salary | None:
     if raw is None:
         return None
-    if isinstance(raw, Salary):
-        return raw
-    if isinstance(raw, dict):
-        return Salary.model_validate(raw)
-    raise ValidationError.from_exception_data("Salary", [])
+    return Salary.model_validate(raw)
 
 
 def apply_index_enhancements(document: dict) -> dict:
