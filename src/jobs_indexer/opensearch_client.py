@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
+from typing import Optional, Union
 from urllib.parse import quote
 
 import boto3
@@ -37,7 +37,7 @@ class OpenSearchClient:
 
     def _build_auth(
         self, username: Optional[str], password: Optional[str]
-    ) -> Optional[HTTPBasicAuth | AWS4Auth]:
+    ) -> Optional[Union[HTTPBasicAuth, AWS4Auth]]:
         if self.use_aws_auth:
             session = boto3.Session()
             credentials = session.get_credentials()
