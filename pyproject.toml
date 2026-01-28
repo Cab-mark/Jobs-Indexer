@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "jobs-indexer"
+version = "0.1.0"
+description = "SQS-driven AWS Lambda that transforms Job payloads into JobIndex documents and upserts them into OpenSearch."
+authors = ["Cab-mark"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "jobs_indexer", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+boto3 = "^1.35.0"
+botocore = "^1.35.0"
+pydantic = "^2.9.0"
+requests = "^2.32.3"
+requests-aws4auth = "^1.3.1"
+python-json-logger = "^2.0.7"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+pytest-mock = "^3.14.0"
+ruff = "^0.8.2"
+
+[build-system]
+requires = ["poetry-core>=1.9.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+fix = false
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "W"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = "-q"

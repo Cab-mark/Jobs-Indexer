@@ -1,0 +1,174 @@
+openapi: 3.1.0
+info:
+  title: Jobs Indexer Schema
+  version: 1.0.0
+  description: >
+    Authoritative schema for Jobs Indexer. Job represents upstream payloads. JobIndex
+    is the document shape persisted to OpenSearch.
+components:
+  schemas:
+    GeoPoint:
+      type: object
+      properties:
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+    Location:
+      type: object
+      properties:
+        city:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+        postalCode:
+          type: string
+        coordinates:
+          $ref: "#/components/schemas/GeoPoint"
+        remote:
+          type: boolean
+    Salary:
+      type: object
+      properties:
+        minAmount:
+          type: number
+          minimum: 0
+        maxAmount:
+          type: number
+          minimum: 0
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        period:
+          type: string
+          description: hourly, daily, weekly, monthly, or yearly
+    Job:
+      type: object
+      required:
+        - id
+        - title
+        - companyName
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        companyName:
+          type: string
+        companyId:
+          type: string
+        location:
+          description: Location may be an object, an array of objects, or an array of human readable strings.
+          oneOf:
+            - $ref: "#/components/schemas/Location"
+            - type: array
+              items:
+                $ref: "#/components/schemas/Location"
+            - type: array
+              items:
+                type: string
+        salary:
+          $ref: "#/components/schemas/Salary"
+        remote:
+          type: boolean
+        employmentType:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        categories:
+          type: array
+          items:
+            type: string
+        department:
+          type: string
+        language:
+          type: string
+        applyUrl:
+          type: string
+          format: uri
+        applyDetail:
+          type: string
+        contacts:
+          type: array
+          items:
+            type: string
+        publishedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        source:
+          type: string
+    JobIndex:
+      type: object
+      required:
+        - id
+        - title
+        - companyName
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        companyName:
+          type: string
+        companyId:
+          type: string
+        location:
+          oneOf:
+            - $ref: "#/components/schemas/Location"
+            - type: array
+              items:
+                $ref: "#/components/schemas/Location"
+            - type: array
+              items:
+                type: string
+        salary:
+          $ref: "#/components/schemas/Salary"
+        remote:
+          type: boolean
+        employmentType:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        categories:
+          type: array
+          items:
+            type: string
+        department:
+          type: string
+        language:
+          type: string
+        publishedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        source:
+          type: string
